@@ -1,9 +1,8 @@
 name: ci
 
 on:
-  push:
-    branches:
-      - 'main'
+  release:
+    types: [published]
 
 jobs:
   docker:
@@ -27,7 +26,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: znowdev/elixir:1.11.4-erlang-24.0-alpine-3.13.3-rust
+          tags: znowdev/$GITHUB_REF-rust
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
